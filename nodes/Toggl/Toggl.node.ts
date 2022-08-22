@@ -28,6 +28,101 @@ export class Toggl implements INodeType {
 				type: 'options',
 				noDataExpression: true,
 				options: [
+					{
+						name: 'Authenticate and Get User Data',
+						value: 'authenticateAndGetUserData',
+						description: "Authenticate with Toggl and get the user's data",
+					},
+					{
+						name: 'Clients',
+						value: 'clients',
+						description: 'TBU',
+					},
+					{
+						name: 'Dashboard',
+						value: 'dashboard',
+						description: 'TBU',
+					},
+					{
+						name: 'Groups',
+						value: 'groups',
+						description: 'TBU',
+					},
+					{
+						name: 'Project Users',
+						value: 'projectUsers',
+						description: 'TBU',
+					},
+					{
+						name: 'Projects',
+						value: 'projects',
+						description: 'TBU',
+					},
+					{
+						name: 'Tags',
+						value: 'tags',
+						description: 'TBU',
+					},
+					{
+						name: 'Tasks',
+						value: 'tasks',
+						description: 'TBU',
+					},
+					{
+						name: 'Time Entries',
+						value: 'timeEntries',
+						description: 'TBU',
+					},
+					{
+						name: 'Users',
+						value: 'users',
+						description: 'TBU',
+					},
+					{
+						name: 'Workspace Users',
+						value: 'workspaceUsers',
+						description: 'TBU',
+					},
+					{
+						name: 'Workspaces',
+						value: 'workspaces',
+						description: 'TBU',
+					},
+				],
+				default: 'authenticateAndGetUserData',
+				required: true,
+			},
+			{
+				displayName: 'Operation',
+				name: 'operation',
+				type: 'options',
+				noDataExpression: true,
+				displayOptions: {
+					show: {
+						resource: ['authenticateAndGetUserData'],
+					},
+				},
+				options: [
+					{
+						name: 'HTTP Basic Auth with E-Mail and Password',
+						value: 'basicAuthMail',
+						action: 'Http basic auth with email and password an authenticate and get user data',
+					},
+					{
+						name: 'HTTP Basic Auth with API Token',
+						value: 'basicAuthToken',
+						action: 'Http basic auth with api token an authenticate and get user data',
+					},
+					{
+						name: 'Authentication with a Session Cookie',
+						value: 'cookie',
+						action: 'Authentication with a session cookie',
+					},
+					{
+						name: 'Destroy the Session',
+						value: 'destroySession',
+						action: 'Destroy the session',
+					},
 				],
 				default: 'basicAuthToken',
 				required: true,
@@ -35,19 +130,12 @@ export class Toggl implements INodeType {
 		],
 	};
 
-	// The function below is responsible for actually doing whatever this node
-	// is supposed to do. In this case, we're just appending the `myString` property
-	// with whatever the user has entered.
-	// You can make async calls and use `await`.
 	async execute(this: IExecuteFunctions): Promise<INodeExecutionData[][]> {
 		const items = this.getInputData();
 
 		let item: INodeExecutionData;
 		let myString: string;
 
-		// Iterates over all input items and add the key "myString" with the
-		// value the parameter "myString" resolves to.
-		// (This could be a different value for each item in case it contains an expression)
 		for (let itemIndex = 0; itemIndex < items.length; itemIndex++) {
 			try {
 				myString = this.getNodeParameter('myString', itemIndex, '') as string;
@@ -55,15 +143,10 @@ export class Toggl implements INodeType {
 
 				item.json['myString'] = myString;
 			} catch (error) {
-				// This node should never fail but we want to showcase how
-				// to handle errors.
 				if (this.continueOnFail()) {
 					items.push({ json: this.getInputData(itemIndex)[0].json, error, pairedItem: itemIndex });
 				} else {
-					// Adding `itemIndex` allows other workflows to handle this error
 					if (error.context) {
-						// If the error thrown already contains the context property,
-						// only append the itemIndex
 						error.context.itemIndex = itemIndex;
 						throw error;
 					}
