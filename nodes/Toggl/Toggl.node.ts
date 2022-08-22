@@ -12,23 +12,25 @@ export class Toggl implements INodeType {
 		name: 'Toggl',
 		group: ['transform'],
 		version: 1,
+		subtitle: '={{ $parameter["operation"] + ": " + $parameter["resource"] }}',
 		icon: 'file:togglLogo.svg',
-		description: 'Basic Example Node',
+		description: 'Toggl API node',
 		defaults: {
-			name: 'Example Node',
+			name: 'Toggl',
+			color: '#742cd4',
 		},
 		inputs: ['main'],
 		outputs: ['main'],
 		properties: [
-			// Node properties which the user gets displayed and
-			// can change on the node.
 			{
-				displayName: 'My String',
-				name: 'myString',
-				type: 'string',
-				default: '',
-				placeholder: 'Placeholder value',
-				description: 'The description text',
+				displayName: 'Resource',
+				name: 'resource',
+				type: 'options',
+				noDataExpression: true,
+				options: [
+				],
+				default: 'basicAuthToken',
+				required: true,
 			},
 		],
 	};
