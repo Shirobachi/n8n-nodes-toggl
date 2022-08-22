@@ -1,19 +1,19 @@
 {
-  "name": "n8n-nodes-<...>",
+  "name": "n8n-nodes-toggl",
   "version": "0.1.0",
-  "description": "",
+  "description": "This is community node for toggl API",
   "keywords": [
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/Shirobachi/n8n-nodes-wordnik",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "Simon Hryszko",
+    "email": "simon@hryszko.dev"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/toggl/n8n-nodes-toggl.git"
   },
   "main": "index.js",
   "scripts": {
